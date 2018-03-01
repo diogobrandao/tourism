@@ -6,3 +6,10 @@ Meteor.methods({
     return userId;
   }
 });
+
+Meteor.methods({
+  findByEmail: function(userEmail){
+    var user = Users.findOne({email:userEmail});
+    return user;
+  }
+});
