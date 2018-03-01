@@ -22,16 +22,28 @@ Template.register.events({
       return;
     }
 
-    var newUser={
-      email:registerEmail,
-      displayName:registerDisplayName,
-      password:registerPassword
-    };
+    Meteor.call("findByEmail", registerEmail, function(error, user) {
 
-    Meteor.call("addUser",newUser);
-    FlashMessages.sendSuccess("User created successfully");
-    Router.go("/");
+      if(!error){
+
+        if(user !== undefined){
+          FlashMessages.sendError("This email is already registered.");
+          event.target.reset();
+          return;
+
+        } else {
+
+          var newUser={
+            email: registerEmail,
+            displayName: registerDisplayName,
+            password: registerPassword
+          };
+          Meteor.call("addUser", newUser);
+          FlashMessages.sendSuccess("User created successfully");
+          Router.go("/");
+        }
+      }
+    });
 
   }
-
 });
