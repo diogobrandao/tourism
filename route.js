@@ -11,13 +11,14 @@ Router.route("/login", function  (){
 
 });
 
-
+/*
 Router.route("/register", function  (){
   this.render("register");
 });
-=======
+
   this.render("login");
 });
+*/
 
 Router.route("/register", function  (){
   this.render("register");
